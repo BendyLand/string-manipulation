@@ -23,7 +23,50 @@ Regex Query Tool 		- A tool that allows the user to enter a text string and then
 func main() {
 	// fizzBuzz()
 	// reverseString("The quick brown fox jumps over the lazy dog.")
+	// pigLatin("the quick brown fox")
 }
+
+type List []string
+func (l List) Contains(c rune) bool {
+	for _, x := range l {
+		if x == string(c) {
+			return true
+		}
+	}
+	return false
+}
+
+func pigLatin(sentence string) {
+	words := strings.Split(sentence, " ")
+	for _, word := range words {
+		pigLatinWord(word)
+	}
+	fmt.Println()
+}
+
+func pigLatinWord(word string) {
+	var vowels, consonants List
+	word = strings.ToLower(word)
+	vowels = strings.Split("aeiou", "")
+	consonants = strings.Split("bcdfghjklmnpqrstvwxyz", "")
+	oneConsonant := consonants.Contains(rune(word[0]))
+	twoConsonants := consonants.Contains(rune(word[0])) && consonants.Contains(rune(word[1]))
+	if vowels.Contains(rune(word[0])) {
+		fmt.Print(word + "way ")
+	} else if twoConsonants {
+		body := word[2:]
+		head := word[:2]
+		fmt.Print(body + head + "ay ")
+	} else if oneConsonant {
+		body := word[1:]
+		head := string(word[0])
+		fmt.Print(body + head + "ay ")
+	} else {
+		fmt.Print("You shouldn't be here!")
+	}
+}
+
+
 
 func reverseString(str string) {
 	temp := make([]string, len(str))
