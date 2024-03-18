@@ -22,24 +22,21 @@ func main() {
 	// reverseString("The quick brown fox jumps over the lazy สุนัข")
 	// pigLatin("the quick brown fox")
 	// countVowels("The quick brown fox jumps over the lazy dog.")
-	// fmt.Println(checkPalindrome("racecar"))
+	// checkPalindrome("racecar")
 }
 
-
-
-
-
-func checkPalindrome(text string) bool {
+func checkPalindrome(text string) {
 	reversedString := []rune(text)
 	original := make([]rune, len(reversedString))
 	copy(original, reversedString)
 	slices.Reverse(reversedString)
 	for i := range len(original) {
 		if original[i] != reversedString[i] {
-			return false
+			fmt.Println("Not a palindrome.")
+			return 
 		}
 	}
-	return true
+	fmt.Println("Palindrome!")
 }
 
 
