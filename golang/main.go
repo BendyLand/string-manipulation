@@ -8,7 +8,6 @@ import (
 
 /*
 Text
-Check if Palindrome 	- Checks if the string entered by the user is a palindrome. That is that it reads the same forwards as backwards like “racecar”
 Count Words in a String - Counts the number of individual words in a string. For added complexity read these strings in from a text file and generate a summary.
 Text Editor 			- Notepad style application that can open, edit, and save text documents. Optional: Add syntax highlighting and other features.
 RSS Feed Creator 		- Given a link to RSS/Atom Feed, get all posts and display them.
@@ -20,13 +19,32 @@ Regex Query Tool 		- A tool that allows the user to enter a text string and then
 
 func main() {
 	// fizzBuzz()
-	// reverseString("The quick brown fox jumps over the lazy dog.")
+	// reverseString("The quick brown fox jumps over the lazy สุนัข")
 	// pigLatin("the quick brown fox")
 	// countVowels("The quick brown fox jumps over the lazy dog.")
+	// fmt.Println(checkPalindrome("racecar"))
 }
 
-type List []string
 
+
+
+
+func checkPalindrome(text string) bool {
+	reversedString := []rune(text)
+	original := make([]rune, len(reversedString))
+	copy(original, reversedString)
+	slices.Reverse(reversedString)
+	for i := range len(original) {
+		if original[i] != reversedString[i] {
+			return false
+		}
+	}
+	return true
+}
+
+
+
+type List []string
 func (l List) Contains(c rune) bool {
 	for _, x := range l {
 		if x == string(c) {
@@ -88,12 +106,13 @@ func pigLatinWord(word string) {
 }
 
 func reverseString(str string) {
-	temp := make([]string, len(str))
-	for i, c := range str {
-		temp[i] = string(c)
+	chars := []rune(str)
+	temp := make([]rune, len(chars))
+	for i, c := range chars {
+		temp[i] = c
 	}
 	slices.Reverse(temp)
-	reversedString := strings.Join(temp, "")
+	reversedString := string(temp)
 	fmt.Println(reversedString)
 }
 
