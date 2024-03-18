@@ -5,7 +5,6 @@
 
 /*
 Text
-Check if Palindrome 	- Checks if the string entered by the user is a palindrome. That is that it reads the same forwards as backwards like “racecar”
 Count Words in a String - Counts the number of individual words in a string. For added complexity read these strings in from a text file and generate a summary.
 Text Editor 			- Notepad style application that can open, edit, and save text documents. Optional: Add syntax highlighting and other features.
 RSS Feed Creator 		- Given a link to RSS/Atom Feed, get all posts and display them.
@@ -19,6 +18,7 @@ Regex Query Tool 		- A tool that allows the user to enter a text string and then
 void reverseString(char[]);
 void pigLatin(char word[]);
 void countVowels(char word[]);
+void checkPalindrome(char word[]);
 
 int main(void) {
     // printf("Hello C String Manipulation!\n");
@@ -26,8 +26,27 @@ int main(void) {
     // reverseString("The quick brown fox jumps over the lazy dog.");
     // pigLatin("thanks");
     // countVowels("The quick brown fox jumps over the lazy dog.");
+    // checkPalindrome("racecar");
 
     return 0;
+}
+
+// Check if Palindrome 	- Checks if the string entered by the user is a palindrome. That is that it reads the same forwards as backwards like “racecar”
+void checkPalindrome(char word[]) {
+    char reversedStr[strlen(word) + 1];
+    strcpy(reversedStr, word);
+    int len = strlen(word)-1;
+    for (int i = 0, j = len; i < j; i++, j--) {
+        char temp = reversedStr[i];
+        reversedStr[i] = reversedStr[j];
+        reversedStr[j] = temp;
+    }
+    if (strcmp(word, reversedStr) == 0) {
+        printf("Palindrome!\n");
+    }
+    else {
+        printf("Not a palindrome\n");
+    }
 }
 
 // Count Vowels	- Enter a string and the program counts the number of vowels in the text. For added complexity have it report a sum of each vowel found.
@@ -64,7 +83,7 @@ void pigLatin(char word[]) {
     else {
         char newWord[strlen(word)];
         strcpy(newWord, &word[1]);
-        printf("%s%cay", newWord, word[0]);
+        printf("%s%cay\n", newWord, word[0]);
     }
 }
 
@@ -77,5 +96,5 @@ void reverseString(char word[]) {
         newWord[j] = word[i];
         j++;
     }
-    printf("%s", newWord);
+    printf("%s\n", newWord);
 }
