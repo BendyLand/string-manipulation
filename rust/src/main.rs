@@ -1,6 +1,5 @@
 /*
 Text
-Reverse a String 		- Enter a string and the program will reverse it and print it out.
 Pig Latin 				- Pig Latin is a game of alterations played on the English language game. To create the Pig Latin form of an English word the initial consonant sound is transposed to the end of the word and an ay is affixed (Ex.: "banana" would yield anana-bay). Read Wikipedia for more information on rules.
 Count Vowels 			- Enter a string and the program counts the number of vowels in the text. For added complexity have it report a sum of each vowel found.
 Check if Palindrome 	- Checks if the string entered by the user is a palindrome. That is that it reads the same forwards as backwards like “racecar”
@@ -16,4 +15,18 @@ Regex Query Tool 		- A tool that allows the user to enter a text string and then
 
 fn main() {
     println!("Hello Rust String Manipulation!");
+    reverse_string("The quick brown fox".to_string());
+}
+
+// Reverse a String	- Enter a string and the program will reverse it and print it out.
+fn reverse_string(text: String) {
+    let new_str = {
+        text
+            .chars()
+            .rev()
+            .map(|c| c.to_string())
+            .collect::<Vec<String>>()
+            .join("")
+    };
+    println!("Original: {}\nReversed: {}", &text, &new_str);
 }

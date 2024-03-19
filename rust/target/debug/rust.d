@@ -1,1 +1,1 @@
-/Users/benlandrette/ccode/multi-language-practice/string-manipulation/rust/target/debug/rust: /Users/benlandrette/ccode/multi-language-practice/string-manipulation/rust/src/main.rs
+/Users/benlandrette/ccode/multi-language-practice/small-practice-projects/string-manipulation/rust/target/debug/rust: /Users/benlandrette/ccode/multi-language-practice/small-practice-projects/string-manipulation/rust/src/main.rs
