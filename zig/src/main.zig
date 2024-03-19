@@ -19,13 +19,12 @@ pub fn main() !void {
     const buffer = "This is a test";
     try reverse_string(&allocator, buffer[0..]);
 
-    var word = "idea"; try pig_latin(word[0..]);
-    word = "this";     try pig_latin(word[0..]); // reassignments need to be the same length as the original...
-    word = "take";     try pig_latin(word[0..]);
+    var word: []const u8 = "idea"; try pig_latin(word[0..]);
+    word = "this"; try pig_latin(word[0..]); 
+    word = "take"; try pig_latin(word[0..]);
 
     const string = "The quick brown fox jumps over the lazy dog.";
     try count_vowels(string);
-
 }
 
 // Count Vowels - Enter a string and the program counts the number of vowels in the text. For added complexity have it report a sum of each vowel found.
@@ -45,12 +44,12 @@ pub fn pig_latin(text: []const u8) !void {
     const vowels = "aeiouAEIOU";
 
     const startsWithVowel = std.mem.indexOfScalar(u8, vowels, text[0]) != null;
-    const startsWithOneConsonant = std.mem.indexOfScalar(u8, vowels, text[0]) == null;
-    const startsWithTwoConsonants = std.mem.indexOfScalar(u8, vowels, text[1]) == null and startsWithOneConsonant;
+    const oneConsonant = std.mem.indexOfScalar(u8, vowels, text[0]) == null;
+    const twoConsonants = std.mem.indexOfScalar(u8, vowels, text[1]) == null and oneConsonant;
     if (startsWithVowel) {
         try stdout.print("{s}way\n", .{text});
     }
-    else if (startsWithTwoConsonants) {
+    else if (twoConsonants) {
         const firstTwo = text[0..2];
         const remainingChars = text[2..];
         try stdout.print("{s}{s}ay\n", .{remainingChars, firstTwo});
