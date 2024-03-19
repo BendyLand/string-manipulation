@@ -3,8 +3,6 @@ const stdout = std.io.getStdOut().writer();
 const Allocator = std.mem.Allocator;
 
 // Text
-// Pig Latin 				- Pig Latin is a game of alterations played on the English language game. To create the Pig Latin form of an English word the initial consonant sound is transposed to the end of the word and an ay is affixed (Ex.: "banana" would yield anana-bay). Read Wikipedia for more information on rules.
-// Count Vowels 			- Enter a string and the program counts the number of vowels in the text. For added complexity have it report a sum of each vowel found.
 // Check if Palindrome 	- Checks if the string entered by the user is a palindrome. That is that it reads the same forwards as backwards like “racecar”
 // Count Words in a String - Counts the number of individual words in a string. For added complexity read these strings in from a text file and generate a summary.
 // Text Editor 			- Notepad style application that can open, edit, and save text documents. Optional: Add syntax highlighting and other features.
@@ -16,13 +14,43 @@ const Allocator = std.mem.Allocator;
 
 pub fn main() !void {
     try stdout.print("Hello Zig String Manipulation!\n", .{});
-    var buffer = "This is a test";
     const allocator = std.heap.page_allocator;
 
+    var buffer = "This is a test";
     try reverseString(&allocator, buffer[0..]);
+
+    var newBuffer = "idea"; try pigLatin(newBuffer[0..]);
+    newBuffer = "this";     try pigLatin(newBuffer[0..]); // reassignments need to be the same length...
+    newBuffer = "take";     try pigLatin(newBuffer[0..]);
+
+
 }
 
-// Reverse a String 		- Enter a string and the program will reverse it and print it out.
+// Count Vowels 			- Enter a string and the program counts the number of vowels in the text. For added complexity have it report a sum of each vowel found.
+
+
+// Pig Latin - Pig Latin is a game of alterations played on the English language game. To create the Pig Latin form of an English word the initial consonant sound is transposed to the end of the word and an ay is affixed (Ex.: "banana" would yield anana-bay). Read Wikipedia for more information on rules.
+pub fn pigLatin(text: []const u8) !void {
+    const vowels = "aeiouAEIOU";
+
+    const startsWithVowel = std.mem.indexOf(u8, vowels, text[0..1]) != null;
+    const startsWithOneConsonant = std.mem.indexOf(u8, vowels, text[0..1]) == null;
+    const startsWithTwoConsonants = std.mem.indexOf(u8, vowels, text[1..2]) == null and startsWithOneConsonant;
+    if (startsWithVowel) {
+        try stdout.print("{s}way\n", .{text});
+    }
+    else if (startsWithTwoConsonants) {
+        const firstTwo = text[0..2];
+        const remainingChars = text[2..];
+        try stdout.print("{s}{s}ay\n", .{remainingChars, firstTwo});
+    }
+    else {
+        const remainingChars = text[1..];
+        try stdout.print("{s}{c}ay\n", .{remainingChars, text[0]});
+    }
+}
+
+// Reverse a String	- Enter a string and the program will reverse it and print it out.
 pub fn reverseString(a: *const Allocator, text: []const u8) !void {
     var buffer: []u8 = try a.alloc(u8, text.len);
     defer a.free(buffer);
