@@ -16,26 +16,37 @@ pub fn main() !void {
     try stdout.print("Hello Zig String Manipulation!\n", .{});
     const allocator = std.heap.page_allocator;
 
-    var buffer = "This is a test";
-    try reverseString(&allocator, buffer[0..]);
+    const buffer = "This is a test";
+    try reverse_string(&allocator, buffer[0..]);
 
-    var newBuffer = "idea"; try pigLatin(newBuffer[0..]);
-    newBuffer = "this";     try pigLatin(newBuffer[0..]); // reassignments need to be the same length...
-    newBuffer = "take";     try pigLatin(newBuffer[0..]);
+    var word = "idea"; try pig_latin(word[0..]);
+    word = "this";     try pig_latin(word[0..]); // reassignments need to be the same length as the original...
+    word = "take";     try pig_latin(word[0..]);
 
+    const string = "The quick brown fox jumps over the lazy dog.";
+    try count_vowels(string);
 
 }
 
-// Count Vowels 			- Enter a string and the program counts the number of vowels in the text. For added complexity have it report a sum of each vowel found.
-
+// Count Vowels - Enter a string and the program counts the number of vowels in the text. For added complexity have it report a sum of each vowel found.
+pub fn count_vowels(text: []const u8) !void {
+    const vowels = "aeiouAEIOU";
+    var num_vowels: u8 = 0;
+    for (text) |c| {
+        if (std.mem.indexOfScalar(u8, vowels, c) != null) {
+            num_vowels += 1;
+        }
+    }
+    try stdout.print("There were {d} vowels in the text.\n", .{num_vowels});
+}
 
 // Pig Latin - Pig Latin is a game of alterations played on the English language game. To create the Pig Latin form of an English word the initial consonant sound is transposed to the end of the word and an ay is affixed (Ex.: "banana" would yield anana-bay). Read Wikipedia for more information on rules.
-pub fn pigLatin(text: []const u8) !void {
+pub fn pig_latin(text: []const u8) !void {
     const vowels = "aeiouAEIOU";
 
-    const startsWithVowel = std.mem.indexOf(u8, vowels, text[0..1]) != null;
-    const startsWithOneConsonant = std.mem.indexOf(u8, vowels, text[0..1]) == null;
-    const startsWithTwoConsonants = std.mem.indexOf(u8, vowels, text[1..2]) == null and startsWithOneConsonant;
+    const startsWithVowel = std.mem.indexOfScalar(u8, vowels, text[0]) != null;
+    const startsWithOneConsonant = std.mem.indexOfScalar(u8, vowels, text[0]) == null;
+    const startsWithTwoConsonants = std.mem.indexOfScalar(u8, vowels, text[1]) == null and startsWithOneConsonant;
     if (startsWithVowel) {
         try stdout.print("{s}way\n", .{text});
     }
@@ -51,7 +62,7 @@ pub fn pigLatin(text: []const u8) !void {
 }
 
 // Reverse a String	- Enter a string and the program will reverse it and print it out.
-pub fn reverseString(a: *const Allocator, text: []const u8) !void {
+pub fn reverse_string(a: *const Allocator, text: []const u8) !void {
     var buffer: []u8 = try a.alloc(u8, text.len);
     defer a.free(buffer);
     std.mem.copy(u8, buffer, text);
