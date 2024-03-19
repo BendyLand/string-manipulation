@@ -1,7 +1,8 @@
 const std = @import("std");
+const stdout = std.io.getStdOut().writer();
+const Allocator = std.mem.Allocator;
 
 // Text
-// Reverse a String 		- Enter a string and the program will reverse it and print it out.
 // Pig Latin 				- Pig Latin is a game of alterations played on the English language game. To create the Pig Latin form of an English word the initial consonant sound is transposed to the end of the word and an ay is affixed (Ex.: "banana" would yield anana-bay). Read Wikipedia for more information on rules.
 // Count Vowels 			- Enter a string and the program counts the number of vowels in the text. For added complexity have it report a sum of each vowel found.
 // Check if Palindrome 	- Checks if the string entered by the user is a palindrome. That is that it reads the same forwards as backwards like “racecar”
@@ -14,6 +15,18 @@ const std = @import("std");
 // Regex Query Tool 		- A tool that allows the user to enter a text string and then in a separate control enter a regex pattern. It will run the regular expression against the source text and return any matches or flag errors in the regular expression.
 
 pub fn main() !void {
-    const stdout = std.io.getStdOut().writer();
     try stdout.print("Hello Zig String Manipulation!\n", .{});
+    var buffer = "This is a test";
+    const allocator = std.heap.page_allocator;
+
+    try reverseString(&allocator, buffer[0..]);
+}
+
+// Reverse a String 		- Enter a string and the program will reverse it and print it out.
+pub fn reverseString(a: *const Allocator, text: []const u8) !void {
+    var buffer: []u8 = try a.alloc(u8, text.len);
+    defer a.free(buffer);
+    std.mem.copy(u8, buffer, text);
+    std.mem.reverse(u8, buffer);
+    try stdout.print("Original: {s}\nReversed: {s}\n", .{text, buffer});
 }
