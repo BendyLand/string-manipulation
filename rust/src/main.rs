@@ -17,6 +17,25 @@ fn main() {
     pig_latin("this".to_string());
     pig_latin("task".to_string());
     count_vowels("The quick brown fox jumps over the lazy dog".to_string());
+    check_palindrome(&mut "Noxon".to_string());
+    check_palindrome(&mut "years".to_string());
+}
+
+fn check_palindrome(text: &mut String) {
+    let reversed = {
+        text
+            .chars()
+            .map(|c| c.to_ascii_lowercase())
+            .rev()
+            .collect::<String>()
+    };
+    let original = text.to_ascii_lowercase().to_string();
+    if original == reversed {
+        println!("The word '{}' is a palindrome!", text);
+    }
+    else {
+        println!("The word '{}' is not a palindrome!", text);
+    }
 }
 
 // Count Vowels - Enter a string and the program counts the number of vowels in the text. For added complexity have it report a sum of each vowel found.

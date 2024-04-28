@@ -18,6 +18,7 @@ Regex Query Tool 		- A tool that allows the user to enter a text string and then
 */
 
 func main() {
+	fmt.Println("Hello Go String Manipulation!")
 	// fizzBuzz()
 	// reverseString("The quick brown fox jumps over the lazy สุนัข")
 	// pigLatin("the quick brown fox")
@@ -33,15 +34,14 @@ func checkPalindrome(text string) {
 	for i := range len(original) {
 		if original[i] != reversedString[i] {
 			fmt.Println("Not a palindrome.")
-			return 
+			return
 		}
 	}
 	fmt.Println("Palindrome!")
 }
 
-
-
 type List []string
+
 func (l List) Contains(c rune) bool {
 	for _, x := range l {
 		if x == string(c) {

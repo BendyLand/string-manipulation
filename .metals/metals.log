@@ -349,3 +349,6 @@ Caused by: scala.meta.internal.metals.debug.BuildTargetNotFoundForPathException:
 2024.03.18 16:48:14 WARN  Build server is not auto-connectable.[0m
 Mar 18, 2024 7:01:21 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
 INFO: Unsupported notification method: $/setTrace
+2024.03.18 21:42:21 INFO  Shutting down server[0m
+2024.03.18 21:42:21 INFO  shutting down Metals[0m
+2024.03.18 21:42:21 INFO  Exiting server[0m
