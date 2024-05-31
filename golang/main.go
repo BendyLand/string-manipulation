@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"slices"
 	"strings"
+	"unicode"
 )
 
 /*
 Text
-Count Words in a String - Counts the number of individual words in a string. For added complexity read these strings in from a text file and generate a summary.
 Text Editor 			- Notepad style application that can open, edit, and save text documents. Optional: Add syntax highlighting and other features.
 RSS Feed Creator 		- Given a link to RSS/Atom Feed, get all posts and display them.
 Quote Tracker 			- A program which can go out and check the current value of stocks for a list of symbols entered by the user. The user can set how often the stocks are checked. For CLI, show whether the stock has moved up or down. Optional: If GUI, the program can show green up and red down arrows to show which direction the stock value has moved.
@@ -24,6 +25,52 @@ func main() {
 	// pigLatin("the quick brown fox")
 	// countVowels("The quick brown fox jumps over the lazy dog.")
 	// checkPalindrome("racecar")
+	// countWordsInString("example.txt")
+}
+
+func removePunctuationFromString(file string) string {
+	result := ""
+	for _, c := range file {
+		ch := rune(c)
+		validChar := unicode.IsLetter(ch) || ch == '\'' || ch == ' ' || ch == '\n'
+		if validChar {
+			result += string(c)
+		}
+	}
+	return result
+}
+
+func countWordsInString(path string) {
+	file, err := os.ReadFile(path)
+	if err != nil {
+		fmt.Println("Error reading file:", err)
+		return
+	}
+	result := make(map[string]int)
+	fileStr := strings.ToLower(string(file))
+	noPunc := removePunctuationFromString(fileStr)
+	lines := strings.Split(noPunc, "\n")
+	var allWords []string
+	for _, line := range lines {
+		words := strings.Split(line, " ")
+		for _, word := range words {
+			allWords = append(allWords, word)
+			if _, ok := result[word]; ok {
+				result[word] += 1
+			} else {
+				result[word] = 1
+			}
+		}
+	}
+	fmt.Println("Text summary:")
+	for k, v := range result {
+		if v == 1 {
+			fmt.Printf("The word '%s' occurs 1 time.\n", k)
+		} else {
+			fmt.Printf("The word '%s' occurs %d times.\n", k, v)
+		}
+	}
+	fmt.Printf("There were a total of %d distinct words in the text.\n", len(result))
 }
 
 func checkPalindrome(text string) {
