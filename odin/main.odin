@@ -5,7 +5,7 @@ import "core:strings"
 
 main :: proc() {
     test_reverse()
-    pig_latin("another test that is hopefully better")
+    pig_latin("here is my final test")
 }
 
 /* 
@@ -31,7 +31,7 @@ test_reverse :: proc() {
 }
 
 pig_latin :: proc(s: string) {
-    vowels := "aeiouAEIOU"
+    vowels := "aeiouyAEIOUY"
     result: string
     words := strings.split(s, " ")
     new_words: [dynamic]string
