@@ -3,16 +3,8 @@ package main
 import "core:fmt"
 import "core:strings"
 
-main :: proc() {
-    test_reverse()
-    pig_latin("here is my final test")
-    count_vowels("the quick brown fox jumps over the lazy dog.")
-    test_palindrome()
-}
-
 /* 
 Text
-Count Words in a String - Counts the number of individual words in a string. For added complexity read these strings in from a text file and generate a summary.
 Text Editor 			- Notepad style application that can open, edit, and save text documents. Optional: Add syntax highlighting and other features.
 RSS Feed Creator 		- Given a link to RSS/Atom Feed, get all posts and display them.
 Quote Tracker 		- A program which can go out and check the current value of stocks for a list of symbols entered by the user. The user can set how often the stocks are checked. For CLI, show whether the stock has moved up or down. Optional: If GUI, the program can show green up and red down arrows to show which direction the stock value has moved.
@@ -20,6 +12,31 @@ Guestbook/Journal 	- A simple application that allows people to add comments or 
 Vernam/Ceasar Ciphers - Functions for encrypting and decrypting data messages. Then send them to a friend.
 Regex Query Tool 		- A tool that allows the user to enter a text string and then in a separate control enter a regex pattern. It will run the regular expression against the source text and return any matches or flag errors in the regular expression.
 */
+
+main :: proc() {
+    fizzbuzz()
+    test_reverse()
+    pig_latin("here is my final test")
+    count_vowels("the quick brown fox jumps over the lazy dog.")
+    test_palindrome()
+}
+
+fizzbuzz :: proc() {
+    for i in 1..=100 {
+        if i % 5 == 0 && i % 3 == 0 {
+            fmt.println("FizzBuzz")
+        }
+        else if i % 5 == 0 {
+            fmt.println("Buzz")
+        }
+        else if i % 3 == 0 {
+            fmt.println("Fizz")
+        }
+        else {
+            fmt.println(i)
+        }
+    }
+}
 
 reverse :: proc(s: string) -> string {
     return strings.reverse(s)
@@ -68,7 +85,6 @@ count_vowels :: proc(s: string) {
     fmt.printf("There were %d vowels in the text!\n", count)
 }
 
-// Check if Palindrome 	- Checks if the string entered by the user is a palindrome. That is that it reads the same forwards as backwards like “racecar”
 check_palindrome :: proc(s: string) {
     s1 := strings.to_lower(s)
     rev := strings.reverse(s1)
@@ -88,3 +104,5 @@ test_palindrome :: proc() {
     check_palindrome("racecar")
     check_palindrome("Ben")
 }
+
+// Count Words in a String - Counts the number of individual words in a string. For added complexity read these strings in from a text file and generate a summary.
