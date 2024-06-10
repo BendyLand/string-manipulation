@@ -1,6 +1,5 @@
 /*
 Text
-Check if Palindrome 	- Checks if the string entered by the user is a palindrome. That is that it reads the same forwards as backwards like “racecar”
 Count Words in a String - Counts the number of individual words in a string. For added complexity read these strings in from a text file and generate a summary.
 Text Editor 			- Notepad style application that can open, edit, and save text documents. Optional: Add syntax highlighting and other features.
 RSS Feed Creator 		- Given a link to RSS/Atom Feed, get all posts and display them.
@@ -11,14 +10,10 @@ Regex Query Tool 		- A tool that allows the user to enter a text string and then
 */
 
 fn main() {
-    println!("Hello Rust String Manipulation!");
     reverse_string("The quick brown fox".to_string());
-    pig_latin("idea".to_string());
-    pig_latin("this".to_string());
-    pig_latin("task".to_string());
+    test_pig_latin();
     count_vowels("The quick brown fox jumps over the lazy dog".to_string());
-    check_palindrome(&mut "Noxon".to_string());
-    check_palindrome(&mut "years".to_string());
+    test_check_palindrome();
 }
 
 fn check_palindrome(text: &mut String) {
@@ -38,7 +33,11 @@ fn check_palindrome(text: &mut String) {
     }
 }
 
-// Count Vowels - Enter a string and the program counts the number of vowels in the text. For added complexity have it report a sum of each vowel found.
+fn test_check_palindrome() {
+    check_palindrome(&mut "Noxon".to_string());
+    check_palindrome(&mut "years".to_string());
+}
+
 fn count_vowels(text: String) {
     let vowels = "aeiouAEIOU";
     let mut num_vowels = 0;
@@ -50,7 +49,6 @@ fn count_vowels(text: String) {
     println!("There were {} vowels in the text!", num_vowels);
 }
 
-// Pig Latin - Pig Latin is a game of alterations played on the English language game. To create the Pig Latin form of an English word the initial consonant sound is transposed to the end of the word and an ay is affixed (Ex.: "banana" would yield anana-bay). Read Wikipedia for more information on rules.
 fn pig_latin(word: String) {
     let vowels = "aeiouAEIOU";
     let starts_with_vowel = vowels.contains(&&word[0..1]);
@@ -67,6 +65,12 @@ fn pig_latin(word: String) {
         let body = &word[1..];
         println!("{}{}ay", body, &word[0..1]);
     }
+}
+
+fn test_pig_latin() {
+    pig_latin("idea".to_string());
+    pig_latin("this".to_string());
+    pig_latin("task".to_string());
 }
 
 // Reverse a String	- Enter a string and the program will reverse it and print it out.

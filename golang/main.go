@@ -19,7 +19,6 @@ Regex Query Tool 		- A tool that allows the user to enter a text string and then
 */
 
 func main() {
-	fmt.Println("Hello Go String Manipulation!")
 	// fizzBuzz()
 	// reverseString("The quick brown fox jumps over the lazy สุนัข")
 	// pigLatin("the quick brown fox")

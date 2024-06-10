@@ -62,7 +62,7 @@ pub fn pig_latin(text: []const u8) !void {
 
 // Reverse a String	- Enter a string and the program will reverse it and print it out.
 pub fn reverse_string(a: *const Allocator, text: []const u8) !void {
-    var buffer: []u8 = try a.alloc(u8, text.len);
+    const buffer: []u8 = try a.alloc(u8, text.len);
     defer a.free(buffer);
     std.mem.copy(u8, buffer, text);
     std.mem.reverse(u8, buffer);
