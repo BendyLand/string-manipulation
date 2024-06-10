@@ -7,11 +7,11 @@ main :: proc() {
     test_reverse()
     pig_latin("here is my final test")
     count_vowels("the quick brown fox jumps over the lazy dog.")
+    test_palindrome()
 }
 
 /* 
 Text
-Check if Palindrome 	- Checks if the string entered by the user is a palindrome. That is that it reads the same forwards as backwards like “racecar”
 Count Words in a String - Counts the number of individual words in a string. For added complexity read these strings in from a text file and generate a summary.
 Text Editor 			- Notepad style application that can open, edit, and save text documents. Optional: Add syntax highlighting and other features.
 RSS Feed Creator 		- Given a link to RSS/Atom Feed, get all posts and display them.
@@ -68,4 +68,23 @@ count_vowels :: proc(s: string) {
     fmt.printf("There were %d vowels in the text!\n", count)
 }
 
-
+// Check if Palindrome 	- Checks if the string entered by the user is a palindrome. That is that it reads the same forwards as backwards like “racecar”
+check_palindrome :: proc(s: string) {
+    s1 := strings.to_lower(s)
+    rev := strings.reverse(s1)
+    is_palindrome := false
+    if s1 == rev {
+        is_palindrome = true
+    }
+    if is_palindrome {
+        fmt.println(s, "is a palindrome!")
+    }
+    else {
+        fmt.println(s, "is not a palindrome.")
+    }
+}
+test_palindrome :: proc() {
+    check_palindrome("Noxon")
+    check_palindrome("racecar")
+    check_palindrome("Ben")
+}
